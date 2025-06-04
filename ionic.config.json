@@ -1,0 +1,8 @@
+{
+  "name": "wtom-travel-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular",
+  "id": "f0e1fe6b"
+}

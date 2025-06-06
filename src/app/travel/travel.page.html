@@ -1,13 +1,91 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>travel</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <br><br>
+    <ion-title>travel<br><br></ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">travel</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div>
+    {{uzenet}}<br>
+    <ion-list>
+      @for(item of this.travelList; track item.id ){
+      <ion-item>
+        <ion-card>
+          
+          <!--ion-card-title> Körutazás neve 2 <ion-icon name="chevron-up-outline"></ion-icon></ion-card-title-->
+          <ion-card-subtitle>{{item.utazas_tipus_name}}</ion-card-subtitle>
+          <ion-card-title> {{item.name}} <ion-icon name="list-circle" (click)="select_travel(item.id)"></ion-icon> <ion-icon class="main-icon" id="main-icon-{{item.id}}" name="chevron-down-outline"  (click)=open_main_travel(item.id)></ion-icon></ion-card-title>
+            <!--ion-card-content [ngClass]="'main-travel-'+item.id "-->
+            <ion-card-content>
+              <div class="main-travel" [style.display]="item.id==opened_main_travel ? 'block' : 'none'" id="main-travel-{{item.id}}">
+            
+              <div class="row">
+                <div class="col-1"><b>Tól:</b></div>
+                <div class="col-3">{{item.tol}}</div>
+                <div class="col-1"><b>Ig:</b></div>
+                <div class="col-3">{{item.ig}}</div>
+              </div>
+              <div class="row">
+                <div class="col-1"><b>URL:</b></div>
+                <div class="col-10">{{item.url}}</div>
+              </div>
+              <div class="row">
+                <div class="col-2"><b>Útvonal:</b></div>
+                <div class="col-9">{{item.utvonal}}</div>
+              </div>
+              <!--div class="row"-->
+                @for(subitem of item.alutazas; track subitem.id){
+                    <ion-item>
+                      <ion-card style="width: 100%;">
+                        <ion-card-title>{{subitem.name}} <ion-icon name="list-circle"></ion-icon> <ion-icon name="chevron-down-outline"  (click)=open_sub_travel(subitem.id)></ion-icon></ion-card-title>
+
+                        <!--ion-card-content [ngClass]="'sub-travel-'+subitem.id "-->
+                         <ion-card-content>
+
+                          <div class="sub-travel" [style.display]="subitem.id==opened_sub_travel ? 'block' : 'none'" id="sub-travel-{{subitem.id}}">
+                          
+                            <div class="row">
+                              <div class="col-1"><b>Tól:</b></div>
+                              <div class="col-3">{{subitem.tol}}</div>
+                              <div class="col-1"><b>Ig:</b></div>
+                              <div class="col-3">{{subitem.ig}}</div>
+                            </div>
+                            <div class="row">
+                              <div class="col-1"><b>URL:</b></div>
+                              <div class="col-10">{{subitem.url}}</div>
+                            </div>
+                            <div class="row">
+                              <div class="col-2"><b>Útvonal:</b></div>
+                              <div class="col-9">{{subitem.utvonal}}</div>
+                            </div>
+                          </div>
+                        </ion-card-content>
+                      </ion-card>
+                    </ion-item>
+                }
+            </div>
+          </ion-card-content>
+        </ion-card>
+
+        
+      </ion-item>
+    }
+    @empty {
+      <ion-item>
+        <ion-loading trigger="open-loading"  message="Kis türelmet a betöltés folyamatban" duration="3000"></ion-loading>
+        <!--ion-card>
+          <ion-card-title>Egy kis türelmet, betöltés folyamatban</ion-card-title>
+        </ion-card-->
+      </ion-item>
+    }
+
+
+
+    </ion-list>
+  </div>
+
 </ion-content>

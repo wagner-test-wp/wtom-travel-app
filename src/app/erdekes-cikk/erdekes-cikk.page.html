@@ -1,0 +1,60 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <br><br>
+    <ion-title>Érdekes cikk<br><br></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+   <br>
+  <ion-button expand="block" (click)="setOpenModal(true)" >Új érdekes cikk</ion-button>
+    <!-- Modális ablak, amit akkor nyitunk ha tárolva a belépési URL-->
+    <ion-modal [isOpen]="isModalOpen">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>Új érdekes cikk</ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="setOpenModal(false)">Close</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+
+          <!-- Login form a Modális ablakon belül -->
+          <form [formGroup]="formData" (ngSubmit)="onSubmit()"  padding-right>
+
+            <ion-list>
+              <ion-item>
+                <ion-input 
+                    fill="solid" 
+                     
+                    label="Url" 
+                    placeholder="url"  
+                    formControlName="url"></ion-input>
+              </ion-item>
+                            
+            </ion-list>
+    
+            <ion-button type="submit" expand="block">Mentés</ion-button>
+    
+          </form>
+          
+          <!-- Alert ablak - Hibás volt a bejelentkéz-->
+          <!--ion-alert
+              [isOpen]="isAlertOpen"
+              header="Error message"
+              [message]="alertMessage"
+              [buttons]="alertButtons"
+              (didDismiss)="setOpen(false)"
+            ></ion-alert-->
+
+         </ion-content>
+    </ng-template>
+  </ion-modal>
+
+
+</ion-content>

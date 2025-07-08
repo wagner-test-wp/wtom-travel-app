@@ -9,6 +9,8 @@ export class AppComponent {
   public appPages = [
     { title: 'Travel', url: '/travel', icon: 'mail' },
     { title: 'Részletek', url: '/travel-details', icon: 'mail' },
+    { title: 'Érdekes cikkek', url: '/erdekes-cikk', icon: 'mail' },
+
     { title: 'Home', url: '/home', icon: 'mail' },
 
     { title: 'Inbox', url: '/folder/inbox', icon: 'mail' }

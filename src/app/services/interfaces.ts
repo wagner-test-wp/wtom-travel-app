@@ -56,3 +56,10 @@ export interface travelShort{
     utazas_tipus_id : number;
     days : travelDay[];
 }
+
+export interface UrlResult{
+    id : number;
+    url : string;
+    is_feldolgozva: number;
+    rate : number;
+}

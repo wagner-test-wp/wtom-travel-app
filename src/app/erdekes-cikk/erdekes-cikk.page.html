@@ -4,13 +4,31 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <br><br>
-    <ion-title>Érdekes cikk<br><br></ion-title>
+    <ion-title style="float:left;">Érdekes cikk<br><br></ion-title>
+    <ion-button style="float: right;" (click)="setOpenModal(true)" >Új érdekes cikk</ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-   <br>
-  <ion-button expand="block" (click)="setOpenModal(true)" >Új érdekes cikk</ion-button>
+  <br>
+  
+  <ion-list>
+    @for(item of this.urlList; track item.id ){
+      <ion-item>
+        {{item.url}}
+      </ion-item>
+    }
+    @empty {
+      <ion-item>
+        <ion-loading trigger="open-loading"  message="Kis türelmet a betöltés folyamatban" duration="3000"></ion-loading>
+        <!--ion-card>
+          <ion-card-title>Egy kis türelmet, betöltés folyamatban</ion-card-title>
+        </ion-card-->
+      </ion-item>
+    }
+  </ion-list>  
+</ion-content>
+
     <!-- Modális ablak, amit akkor nyitunk ha tárolva a belépési URL-->
     <ion-modal [isOpen]="isModalOpen">
       <ng-template>
@@ -44,17 +62,15 @@
           </form>
           
           <!-- Alert ablak - Hibás volt a bejelentkéz-->
-          <!--ion-alert
+          <ion-alert
               [isOpen]="isAlertOpen"
-              header="Error message"
-              [message]="alertMessage"
+              header="Érdekes cikk"
+              message="Mentés megtörtént"
               [buttons]="alertButtons"
-              (didDismiss)="setOpen(false)"
-            ></ion-alert-->
+              (didDismiss)="mindentBezar()"
+            ></ion-alert>
 
          </ion-content>
-    </ng-template>
-  </ion-modal>
+      </ng-template>
+    </ion-modal>
 
-
-</ion-content>

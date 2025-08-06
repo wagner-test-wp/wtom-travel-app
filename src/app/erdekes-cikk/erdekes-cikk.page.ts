@@ -9,6 +9,8 @@ import { IonAlert } from '@ionic/angular/standalone';
 import { IonModal,IonButton,IonInput,IonItemGroup } from '@ionic/angular/standalone';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ErdekesCikkService } from '../services/erdekes-cikk.service';
+import { LoadingController } from '@ionic/angular';
 
 
 
@@ -25,21 +27,37 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class ErdekesCikkPage implements OnInit {
 
   isModalOpen = false;
+  isAlertOpen = false;
+
+  alertButtons = ['OK'];
+
+
   formData: FormGroup;
   
   base_url : string ="http://adatbazis-ced.hu/travel/ajaxCall/travel/mobil-travel";
+  urlList : any[]=[];
 
 
   constructor(
-          private http:HttpClient
+          private http:HttpClient,
+              public loadingController: LoadingController,
+              public erdekesCikkService : ErdekesCikkService,
+          
   ) {
-        this.formData = new FormGroup({
+      this.formData = new FormGroup({
       url: new FormControl()
      });
 
    }
 
   ngOnInit() {
+    console.log("kezdes");
+    this.erdekesCikkService.getAllUrl()
+          .subscribe(data => {
+            console.log(data);
+            this.urlList=data;
+          });
+
   }
 
   // megnyitom a modális ablakot
@@ -48,7 +66,19 @@ export class ErdekesCikkPage implements OnInit {
   }
 
    onSubmit(){
-      var options={
+
+        this.erdekesCikkService.storeUrl(this.formData.value.url)
+          .subscribe(data => {
+            console.log(data);
+            this.setOpenModal(false);
+            this.formData.reset();
+            this.urlList=data;
+            this.setOpen(true);
+
+          });
+
+
+  /*    var options={
         method: 'POST',
         params :{
             url: this.formData.value.url,
@@ -56,11 +86,22 @@ export class ErdekesCikkPage implements OnInit {
           }
       }
 
-  this.http.get(this.base_url,options).
-    subscribe((response : any)=>{
-      console.log(response);
-    });
-
+    this.http.get(this.base_url,options).
+      subscribe((response : any)=>{
+        console.log(response);
+        this.setOpen(true);
+      });
+*/
    } 
+
+  mindentBezar(){
+    this.setOpen(false);
+    this.setOpenModal(false);
+  }
+
+  setOpen(isOpen: boolean) {
+    this.isAlertOpen = isOpen;
+  }
+
 
 }

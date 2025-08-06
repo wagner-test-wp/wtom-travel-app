@@ -1,7 +1,10 @@
+
+
+
 import { inject, Injectable, Component, NgModule } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
-import { TravelResult, SubTravelResult, travelShort} from './interfaces';
+import { UrlResult} from './interfaces';
 
 
 const BASE_URL ="http://adatbazis-ced.hu/travel/ajaxCall/travel/mobil-travel";
@@ -11,7 +14,7 @@ const BASE_URL ="http://adatbazis-ced.hu/travel/ajaxCall/travel/mobil-travel";
 })
 
 
-export class TravelService {
+export class ErdekesCikkService {
 
   //public newTravelList : any[]=[];
   //public newTravel : any[]=[];
@@ -19,24 +22,26 @@ export class TravelService {
   constructor(private http: HttpClient) {}
  
 
-  getAllTravel(): Observable<TravelResult[]>{
+  getAllUrl(): Observable<UrlResult[]>{
     const options={
       method: 'POST',
-      params :{function: "travel_all"}
+      params :{function: "url_all"}
     }
 
-    return this.http.get<TravelResult[]>(BASE_URL, options);
+    return this.http.get<UrlResult[]>(BASE_URL, options);
 
   }
 
-  getTravel(travel_id: number): Observable<travelShort[]>{
+
+    storeUrl(url_to_store: string): Observable<UrlResult[]>{
     const options={
       method: 'POST',
-      params :{function: "travel_programs",travel_id: travel_id}
+      params :{function: "store_url",url: url_to_store}
     }
 
-    return this.http.get<travelShort[]>(BASE_URL, options);
+    return this.http.get<UrlResult[]>(BASE_URL, options);
 
   }
+
 
 }

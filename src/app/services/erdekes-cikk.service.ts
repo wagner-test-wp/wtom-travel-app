@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { UrlResult} from './interfaces';
 
 
-const BASE_URL ="http://adatbazis-ced.hu/travel/ajaxCall/travel/mobil-travel";
+const BASE_URL ="https://adatbazis-ced.hu/travel/ajaxCall/travel/mobil-travel";
 
 @Injectable({
   providedIn: 'root'

@@ -10,10 +10,11 @@ export class AppComponent {
     { title: 'Travel', url: '/travel', icon: 'mail' },
     { title: 'Részletek', url: '/travel-details', icon: 'mail' },
     { title: 'Érdekes cikkek', url: '/erdekes-cikk', icon: 'mail' },
-
+/*
     { title: 'Home', url: '/home', icon: 'mail' },
 
     { title: 'Inbox', url: '/folder/inbox', icon: 'mail' }
+*/     
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
   constructor() {}

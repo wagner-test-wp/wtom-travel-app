@@ -5,7 +5,6 @@
     </ion-buttons>
     <br><br>
     <ion-title style="float:left;">Érdekes cikk<br><br></ion-title>
-    <ion-button style="float: right;" (click)="setOpenModal(true)" >Új érdekes cikk</ion-button>
   </ion-toolbar>
 </ion-header>
 
@@ -73,4 +72,9 @@
          </ion-content>
       </ng-template>
     </ion-modal>
+<ion-footer [translucent]="true">
+  <ion-toolbar>
+    <ion-button style="margin-left: auto; margin-right: left;" (click)="setOpenModal(true)" >Új érdekes cikk</ion-button>
+  </ion-toolbar>
+</ion-footer>
 

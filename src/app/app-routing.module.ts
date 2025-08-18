@@ -2,9 +2,14 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  {
+/*  {
     path: '',
     redirectTo: 'folder/inbox',
+    pathMatch: 'full'
+  },*/
+  {
+    path: '',
+    redirectTo: 'travel',
     pathMatch: 'full'
   },
   {
@@ -14,13 +19,10 @@ const routes: Routes = [
   {
     path: 'travel',
     loadChildren: () => import('./travel/travel.module').then( m => m.TravelPageModule)
-  },  {
-    path: 'travel-details',
-    loadChildren: () => import('./travel-details/travel-details.module').then( m => m.TravelDetailsPageModule)
   },
   {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    path: 'travel-details',
+    loadChildren: () => import('./travel-details/travel-details.module').then( m => m.TravelDetailsPageModule)
   },
   {
     path: 'erdekes-cikk',

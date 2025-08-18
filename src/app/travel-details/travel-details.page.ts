@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { IonList,IonTitle,IonCard,IonCardTitle,IonToolbar } from '@ionic/angular/standalone';
+import { IonList,IonTitle,IonCard,IonCardTitle,IonToolbar, IonButton } from '@ionic/angular/standalone';
 import { IonAccordion, IonAccordionGroup, IonItem, IonLabel, IonContent,IonButtons,
      IonHeader, IonCardSubtitle,IonCardContent,IonMenuButton,IonLoading, IonIcon    
 } from '@ionic/angular/standalone';
@@ -10,7 +10,7 @@ import { IonAccordion, IonAccordionGroup, IonItem, IonLabel, IonContent,IonButto
   selector: 'app-travel-details',
   templateUrl: './travel-details.page.html',
   styleUrls: ['./travel-details.page.scss'],
-    imports: [IonList,IonTitle,IonCard,IonCardTitle,IonToolbar,IonContent,IonButtons,
+    imports: [IonButton, IonList,IonTitle,IonCard,IonCardTitle,IonToolbar,IonContent,IonButtons,
       IonItem,IonHeader, IonCardSubtitle,IonCardContent,IonMenuButton,IonLoading, IonIcon
   ],
 

@@ -19,4 +19,6 @@ import { ErdekesCikkPage } from './erdekes-cikk.page';
   ],
   //declarations: [ErdekesCikkPage]
 })
-export class ErdekesCikkPageModule {}
+export class ErdekesCikkPageModule {
+
+}

@@ -11,7 +11,7 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ErdekesCikkService } from '../services/erdekes-cikk.service';
 import { LoadingController } from '@ionic/angular';
-
+import { AlertController } from '@ionic/angular';
 
 
 @Component({
@@ -42,7 +42,7 @@ export class ErdekesCikkPage implements OnInit {
           private http:HttpClient,
               public loadingController: LoadingController,
               public erdekesCikkService : ErdekesCikkService,
-          
+          private alertCtrl: AlertController
   ) {
       this.formData = new FormGroup({
       url: new FormControl()
@@ -64,6 +64,27 @@ export class ErdekesCikkPage implements OnInit {
   setOpenModal(isOpen: boolean) {
     this.isModalOpen = isOpen;
   }
+
+
+
+
+  ready_url(url_id: number){
+      this.erdekesCikkService.readyUrl(url_id)
+              .subscribe(data => {
+                console.log(data);
+                this.urlList=data;
+              });
+
+    }
+
+  delete_url(url_id: number){
+      this.erdekesCikkService.deleteUrl(url_id)
+              .subscribe(data => {
+                console.log(data);
+                this.urlList=data;
+              });
+    }
+
 
    onSubmit(){
 
@@ -101,6 +122,52 @@ export class ErdekesCikkPage implements OnInit {
 
   setOpen(isOpen: boolean) {
     this.isAlertOpen = isOpen;
+  }
+
+//**************************************************************************
+//**************************************************************************
+
+
+ async presentConfirm(): Promise<boolean> {
+    const alert = await this.alertCtrl.create({
+      header: 'Megerõsítés',
+      message: 'Biztosan törölni szeretnéd?',
+      buttons: [
+        {
+          text: 'Mégse',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            // opcionális: itt kezelhetsz azonnal, de visszatéréshez onDidDismiss-et használunk
+          }
+        },
+        {
+          text: 'Törlés',
+          cssClass: 'danger',
+          handler: () => {
+            // opcionális: itt is kezelhetsz közvetlenül
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+
+    // visszakapjuk a felhasználó választását (role: 'cancel' vagy más)
+    const result = await alert.onDidDismiss();
+    // Ha nem cancel, tekintjük megerõsítettnek:
+    return result.role !== 'cancel';
+  }
+
+  // példa hívás
+  async onDeleteClicked(url_id:number) {
+    const confirmed = await this.presentConfirm();
+    if (confirmed) {
+      // végrehajtod a törlést
+      this.delete_url(url_id);
+    } else {
+      // felhasználó megszakította
+    }
   }
 
 

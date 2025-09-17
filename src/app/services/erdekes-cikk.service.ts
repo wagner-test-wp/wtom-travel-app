@@ -33,7 +33,7 @@ export class ErdekesCikkService {
   }
 
 
-    storeUrl(url_to_store: string): Observable<UrlResult[]>{
+  storeUrl(url_to_store: string): Observable<UrlResult[]>{
     const options={
       method: 'POST',
       params :{function: "store_url",url: url_to_store}
@@ -43,5 +43,25 @@ export class ErdekesCikkService {
 
   }
 
+
+  readyUrl(url_id: number): Observable<UrlResult[]>{
+    const options={
+      method: 'POST',
+      params :{function: "ready_url",url_id: url_id}
+    }
+
+    return this.http.get<UrlResult[]>(BASE_URL, options);
+
+  }
+
+  deleteUrl(url_id: number): Observable<UrlResult[]>{
+    const options={
+      method: 'POST',
+      params :{function: "delete_url",url_id: url_id}
+    }
+
+    return this.http.get<UrlResult[]>(BASE_URL, options);
+
+  }
 
 }

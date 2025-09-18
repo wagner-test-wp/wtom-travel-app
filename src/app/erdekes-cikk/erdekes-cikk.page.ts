@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { IonList,IonTitle,IonCard,IonCardTitle,IonToolbar } from '@ionic/angular/standalone';
 import { IonAccordion, IonAccordionGroup, IonItem, IonLabel, IonContent,IonButtons,
-     IonHeader,IonFooter, IonCardSubtitle,IonCardContent,IonMenuButton,IonLoading, IonIcon    
+     IonHeader,IonFooter, IonCardSubtitle,IonCardContent,IonMenuButton,IonLoading, IonIcon,IonApp    
 } from '@ionic/angular/standalone';
 import { IonAlert } from '@ionic/angular/standalone';
 import { IonModal,IonButton,IonInput,IonItemGroup } from '@ionic/angular/standalone';
@@ -19,7 +19,7 @@ import { AlertController } from '@ionic/angular';
   templateUrl: './erdekes-cikk.page.html',
   styleUrls: ['./erdekes-cikk.page.scss'],
  // standalone: false,
-  imports: [IonList,IonTitle,IonCard,IonCardTitle,IonToolbar,IonContent,IonButtons,IonAlert,IonModal,IonItemGroup,
+  imports: [IonList,IonTitle,IonCard,IonCardTitle,IonToolbar,IonContent,IonButtons,IonAlert,IonModal,IonItemGroup,IonApp,
       IonItem,IonHeader,IonFooter, IonCardSubtitle,IonCardContent,IonMenuButton,IonLoading, IonIcon,IonButton,IonInput,FormsModule,ReactiveFormsModule
   ],
 

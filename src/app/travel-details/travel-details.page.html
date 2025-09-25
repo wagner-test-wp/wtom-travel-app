@@ -9,9 +9,47 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">travel-details</ion-title>
-    </ion-toolbar>
-  </ion-header>
+ <div>
+   <!--{{uzenet}}<br>--> 
+    <!--ion-list-->
+      @for(item of this.travel_details; track item.id ){
+        <!--ion-item-->
+            <div [class]="item.utazas_tipus_id==2 ? 'korutazas' : 'utazas'">{{item.name}}</div>
+            <div style="clear: both;"></div>
+            @if (item.utazas_tipus_id!=2) {
+            <!--ion-card-->
+            <div class="utazas_adatai">
+              @for(nap of item.days; track nap.id ){
+                <!--ion-list-->
+                  <span class="title">{{nap.name}}</span>
+                  @for(program of nap.programs; track program.id ){
+                    <!--div class="program_adatai"-->
+                    <ion-card>
+                      <div class="program_nev">
+                        {{program.name}}
+                        <ion-icon class="program-icon" id="program-icon-{{program.id}}" [name]="nyitva[program.id]!==undefined && nyitva[program.id]==1 ? 'chevron-up-outline' : 'chevron-down-outline'" (click)=open_program(program.id) style="float: right;"></ion-icon>
+                      </div>  
+                      <div id="program_{{program.id}}" [class]="nyitva[program.id]!==undefined && nyitva[program.id]==1 ? 'nyitott_program' : 'zart_program' ">
+                      <!--div id="program_{{program.id}}" [class]="program.id==3 ? nyitott_program : zart_program"-->
+                        <div class="program_fejlec">Leírás</div>
+                        <div class="program_tartalom">{{program.description}}</div>
+                        <div class="program_fejlec">Megjegyzés</div>
+                        <div class="program_tartalom">{{program.comment}}</div>
+                        <div style="text-align: center;"><img src="{{forras_url}}{{program.image}}" style="max-width: 50%;" /></div>
+                        <div class="program_fejlec">Hivatkozások</div>
+                        <div><a href='{{program.url}}' target="_blank">{{program.url}}</a></div>
+                        <div>{{tordeles("valami")}}</div>
+                      </div>
+                    </ion-card>          
+                    <!--/div-->
+                  }
+                <!--/ion-list-->
+              }
+            </div>
+            <!--/ion-card-->
+            }
+        <!--/ion-item-->
+      }
+    <!--/ion-list-->
+  </div>
 </ion-content>

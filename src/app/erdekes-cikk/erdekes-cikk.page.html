@@ -24,7 +24,8 @@
         <table width="100%">
           <tr>
             <td style="width: calc( 100% - 90px );">{{item.url}}</td>
-            <td style="width: 45px;text-align: right;"><ion-icon name="checkmark-circle-outline"  style="cursor: pointer;" (click)="ready_url(item.id)" size="large" [color]="item.is_feldolgozva==1 ? 'success' : 'warning'"></ion-icon></td>
+            <td style="width: 45px;text-align: right;"><ion-icon name="checkmark-circle-outline"  style="cursor: pointer;" 
+                    (click)="ready_url(item.id)" size="large" [color]="item.is_feldolgozva==1 ? 'success' : 'warning'"></ion-icon></td>
             <td style="width: 45px;text-align: right;cursor:pointer;"><ion-icon name="close-outline"  style="cursor: pointer;" (click)="onDeleteClicked(item.id)"  size="large" color="danger"></ion-icon></td>
         </tr>
         </table>

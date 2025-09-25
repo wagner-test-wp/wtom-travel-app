@@ -21,7 +21,7 @@ const routes: Routes = [
     loadChildren: () => import('./travel/travel.module').then( m => m.TravelPageModule)
   },
   {
-    path: 'travel-details',
+    path: 'travel-details/:id',
     loadChildren: () => import('./travel-details/travel-details.module').then( m => m.TravelDetailsPageModule)
   },
   {

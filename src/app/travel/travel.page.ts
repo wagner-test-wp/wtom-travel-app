@@ -84,7 +84,7 @@ export class TravelPage implements OnInit {
   }
 
   select_travel(travel_id : number){
-    this.router.navigate(['/travel-details',travel_id]);
+    this.router.navigate(['./travel-details',travel_id]);
   }
 
 }

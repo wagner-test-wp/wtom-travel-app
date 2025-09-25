@@ -1,0 +1,58 @@
+ion-card{
+width: calc( 100% - 10px ) !important;
+padding: 5px !important;
+display:block !important;
+}
+
+.korutazas{
+    font-size: 20px;
+    font-weight: bold;
+    color: navy;
+    display: block !important;
+    padding: 10px;
+    border-bottom: 2px solid navy;
+}
+
+.utazas{
+    font-size: 18px;
+    color: blue;
+    display: block !important;
+    padding: 5px;
+}
+
+.utazas_adatai{
+    padding: 10px;
+    border-bottom: 1px solid blue;
+}
+
+.utazas_adatai span .title{
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.nyitott_program{
+    display: block;
+}
+.zart_program{
+    display: none;
+}
+
+.program_nev{
+    font-size: 14px;
+    color: blue;
+}
+
+.program_fejlec{
+    padding-top: 10px;
+    padding-left: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    color: black
+}
+
+.program_tartalom{
+    padding-top: 5px;
+    padding-left: 10px;
+    font-size: 12px;
+    color: gray;
+}

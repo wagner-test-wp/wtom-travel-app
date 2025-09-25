@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TravelService } from '../services/travel.service';
 import { ActivatedRoute } from '@angular/router';
-import { IonList,IonTitle,IonCard,IonCardTitle,IonToolbar, IonButton } from '@ionic/angular/standalone';
+import { IonList,IonTitle,IonCard,IonCardTitle,IonToolbar, IonButton, IonAlert, IonInput, IonModal } from '@ionic/angular/standalone';
 import { IonAccordion, IonAccordionGroup, IonItem, IonLabel, IonContent,IonButtons,
      IonHeader, IonCardSubtitle,IonCardContent,IonMenuButton,IonLoading, IonIcon    
 } from '@ionic/angular/standalone';
@@ -11,7 +11,7 @@ import { IonAccordion, IonAccordionGroup, IonItem, IonLabel, IonContent,IonButto
   selector: 'app-travel-details',
   templateUrl: './travel-details.page.html',
   styleUrls: ['./travel-details.page.scss'],
-    imports: [IonButton, IonList,IonTitle,IonCard,IonCardTitle,IonToolbar,IonContent,IonButtons,
+    imports: [IonModal, IonInput, IonAlert, IonButton, IonList,IonTitle,IonCard,IonCardTitle,IonToolbar,IonContent,IonButtons,
       IonItem,IonHeader, IonCardSubtitle,IonCardContent,IonMenuButton,IonLoading, IonIcon
   ],
 
@@ -25,6 +25,10 @@ export class TravelDetailsPage implements OnInit {
   uzenet : string ="Részletek";
 
   nyitva : any[]=[];
+
+  is_napi_terkep : boolean = false;
+  terkep_nap_id : number =0;
+
 
   constructor(
         public travelService : TravelService,
@@ -50,18 +54,27 @@ console.log(this.travel_details);
     return szoveg;
   }
 
-open_program(program_id : number){
-  if (this.nyitva[program_id]===undefined){
-    this.nyitva[program_id]=1;
-  }
-  else{
-    if (this.nyitva[program_id]==1){
-      this.nyitva[program_id]=0;
-    }
-    else{
+  open_program(program_id : number){
+    if (this.nyitva[program_id]===undefined){
       this.nyitva[program_id]=1;
     }
+    else{
+      if (this.nyitva[program_id]==1){
+        this.nyitva[program_id]=0;
+      }
+      else{
+        this.nyitva[program_id]=1;
+      }
+    }
   }
-}
+
+  setOpenNapiTerkep(ertek: boolean){
+    this.is_napi_terkep=ertek;
+  }
+
+  open_terkep(nap_id : number){
+    this.terkep_nap_id=nap_id;
+    this.setOpenNapiTerkep(true);
+  }
 
 }

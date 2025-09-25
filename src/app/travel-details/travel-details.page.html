@@ -21,7 +21,7 @@
             <div class="utazas_adatai">
               @for(nap of item.days; track nap.id ){
                 <!--ion-list-->
-                  <span class="title">{{nap.name}}</span>
+                  <span class="title">{{nap.name}}</span><ion-icon name="map-outline"  style="float: right;cursor: pointer;" (click)=open_terkep(nap.id)></ion-icon>
                   @for(program of nap.programs; track program.id ){
                     <!--div class="program_adatai"-->
                     <ion-card>
@@ -53,3 +53,24 @@
     <!--/ion-list-->
   </div>
 </ion-content>
+
+
+<!--    TERKEPES ABLAK MEGNYITASA   -->
+    <!-- Modális ablak, amit akkor nyitunk ha tárolva a belépési URL-->
+    <ion-modal [isOpen]="is_napi_terkep">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>A nap helyei térképen</ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="setOpenNapiTerkep(false)">Close</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+
+         ide jön a térkép 
+
+        </ion-content>
+      </ng-template>
+    </ion-modal>

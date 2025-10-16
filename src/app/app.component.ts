@@ -10,6 +10,7 @@ export class AppComponent {
     { title: 'Travel', url: '/travel', icon: 'mail' },
     { title: 'Részletek', url: '/travel-details', icon: 'mail' },
     { title: 'Érdekes cikkek', url: '/erdekes-cikk', icon: 'mail' },
+    { title: 'Térkép', url: '/map/0/0', icon: 'map' },
 /*
     { title: 'Home', url: '/home', icon: 'mail' },
 

@@ -28,6 +28,11 @@ const routes: Routes = [
     path: 'erdekes-cikk',
     loadChildren: () => import('./erdekes-cikk/erdekes-cikk.module').then( m => m.ErdekesCikkPageModule)
   },
+  {
+    path: 'map/:day_id/:travel_id',
+    loadChildren: () => import('./map/map.module').then( m => m.MapPageModule)
+  },
+
 
  
 

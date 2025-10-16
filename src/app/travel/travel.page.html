@@ -37,6 +37,9 @@
                 <div class="col-2"><b>Útvonal:</b></div>
                 <div class="col-9">{{item.utvonal}}</div>
               </div>
+              <div class="row" style="padding-top: 15px;">
+                <span (click)="select_travel(item.id)" style="cursor: pointer; color: blue;" >Részletek</span>
+              </div>
               <!--div class="row"-->
                 @for(subitem of item.alutazas; track subitem.id){
                     <ion-item>

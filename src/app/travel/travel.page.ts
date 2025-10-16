@@ -42,6 +42,7 @@ export class TravelPage implements OnInit {
     //this.uj_olvas();
     this.travelService.getAllTravel()
           .subscribe(data => {
+console.log(data);            
             this.travelList=data;
           });
 

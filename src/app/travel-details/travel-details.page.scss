@@ -39,7 +39,7 @@ display:block !important;
 
 .program_nev{
     font-size: 14px;
-    color: blue;
+    color: #333;
 }
 
 .program_fejlec{
@@ -55,4 +55,24 @@ display:block !important;
     padding-left: 10px;
     font-size: 12px;
     color: gray;
+}
+
+ion-list{
+    width: 99% !important;
+}
+
+.minoseg_must_see{
+    color: rgb(183, 5, 5);
+    font-weight: bold;
+}
+ 
+.minoseg_kiemelt{
+    color: rgb(34, 151, 79);
+    font-weight: bold;
+}
+.minoseg_nagyon_jo{
+    color: rgb(96, 96, 146);
+}
+.minoseg_jo{
+    color: rgb(144, 116, 91);
 }

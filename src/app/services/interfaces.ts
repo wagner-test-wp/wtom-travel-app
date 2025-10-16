@@ -63,3 +63,18 @@ export interface UrlResult{
     is_feldolgozva: number;
     rate : number;
 }
+
+export interface programList{
+    id : number;
+    name : string;
+    varos : string;
+    lat : number;
+    lon : number;
+    url : string;
+    description : string;
+    comment : string;
+    image : string;
+    minoseg_id : number;
+    minoseg : string;
+    is_lattam : number;
+}

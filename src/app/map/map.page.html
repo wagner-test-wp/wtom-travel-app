@@ -1,0 +1,51 @@
+<ion-header [translucent]="true">
+  <div style="float:left;width: 20%">
+    <ion-toolbar>
+      <ion-buttons slot="start" [style]="travel_id>0 ? 'display: none;' : 'display: block;' ">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </div>
+  <div style="float:left;width: 40%">
+    <ion-title>Térkép</ion-title>    
+  </div>  
+  <div style="float:right;width: 40%">
+    <ion-select label="Távolság" (ngModel)="selected_distance" placeholder="távolság" (ionChange)="valtozott_a_terulet($event)" [style]="travel_id>0 ? 'display: none;' : 'float: right;cursor: pointer;'">
+      <ion-select-option value="2">2 km</ion-select-option>
+      <ion-select-option value="5">5 km</ion-select-option>
+      <ion-select-option value="10">10 km</ion-select-option>
+      <ion-select-option value="100">100 km</ion-select-option>
+      <ion-select-option value="500">500 km</ion-select-option>
+    </ion-select>
+
+
+    <ion-icon name="close-circle-outline" size="large" [style]="travel_id>0 ? 'float: right;cursor: pointer;' : 'display: none;'" (click)=vissza_lepes(travel_id)></ion-icon>
+  </div>  
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div id="map"></div>
+</ion-content>
+
+<!-- Modális ablak, amit akkor nyitunk ha tárolva a belépési URL-->
+<ion-modal [isOpen]="is_program_details">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>A nap helyei térképen</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="close_program_details()">Close</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <span style="font-size: 130%;font-weight: bold;">{{neve}}</span><br><br>
+      <b>Leírás</b><br />
+      <div>{{leiras}}</div><br/>
+      <b>Megjegyzés</b><br/>
+      <div>{{megjegyzes}}</div><br><br>
+      <ion-text [color]="is_lattam==1 ? 'success' : 'medium'" style="cursor: pointer;" (click)=ready_program(travel_id,program_id)>Láttam</ion-text>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+

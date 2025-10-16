@@ -45,5 +45,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	<key>NSLocationWhenInUsageDescription</key>
+	<string>Az alkalmazás a tartozkodási helyedet használja a térkép megjelenítéséhez</string>
 </dict>
 </plist>

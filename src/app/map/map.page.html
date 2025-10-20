@@ -10,6 +10,7 @@
     <ion-title>Térkép</ion-title>    
   </div>  
   <div style="float:right;width: 40%">
+    <br><br>
     <ion-select label="Távolság" (ngModel)="selected_distance" placeholder="távolság" (ionChange)="valtozott_a_terulet($event)" [style]="travel_id>0 ? 'display: none;' : 'float: right;cursor: pointer;'">
       <ion-select-option value="2">2 km</ion-select-option>
       <ion-select-option value="5">5 km</ion-select-option>

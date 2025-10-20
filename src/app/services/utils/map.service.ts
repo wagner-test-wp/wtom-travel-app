@@ -39,6 +39,44 @@ export class MapService {
     var max_lat : number = -180;
     var min_lat : number = 180;
 
+    var darab : number =0;
+    var gyujt_lat: number =0;
+
+    for(const program of point_list){
+      if (program.lat>max_lat){
+        max_lat=program.lat;
+      }
+      if (program.lat<min_lat){
+        min_lat=program.lat;
+      }
+      if (program.lon>max_lon){
+        max_lon=program.lon;
+      }
+      if (program.lon<min_lon){
+        min_lon=program.lon;
+      }
+
+      gyujt_lat+=Math.abs(program.lat);
+      darab++;
+    }
+
+    var atlag=gyujt_lat/darab;
+    var lon_km=Math.abs(111*Math.cos(atlag));
+    var lat_dist=(max_lat-min_lat)*111;
+    var lon_dist=(max_lon-min_lon)*lon_km;
+
+    var distance=Math.sqrt((lat_dist*lat_dist)+(lon_dist*lon_dist));
+
+    return [distance,lat_dist,lon_dist];
+  }
+
+
+   getBounds(point_list: any[]){
+    var max_lon  = -180;
+    var min_lon  = 180;
+    var max_lat  = -180;
+    var min_lat  = 180;
+
     for(const program of point_list){
       if (program.lat>max_lat){
         max_lat=program.lat;
@@ -53,12 +91,7 @@ export class MapService {
         min_lon=program.lon;
       }
     }
-
-    var lat_dist=(max_lat-min_lat)*111;
-    var lon_dist=(max_lon-min_lon)*46;
-    var distance=Math.sqrt((lat_dist*lat_dist)+(lon_dist*lon_dist));
-
-
+    return[min_lat,min_lon,max_lat,max_lon];
   }
 
 }

@@ -25,6 +25,9 @@ end
 target 'App' do
   capacitor_pods
   # Add your Pods here
+  pod 'CapacitorFirebaseApp', :path => '../../node_modules/@capacitor-firebase/app'  
+  pod 'CapacitorFirebaseMessaging', :path => '../../node_modules/@capacitor-firebase/messaging'  
+  pod 'CapacitorFirebaseAnalytics', :path => '../../node_modules/@capacitor-firebase/analytics'  
 end
 
 post_install do |installer|

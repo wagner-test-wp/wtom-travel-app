@@ -40,7 +40,8 @@ export class MapPage implements OnInit {
   program_id : number = 0;
   is_program_details : boolean = false;
   selected_distance : number = 0;
-
+  width: number = 0;
+  height: number = 0;
   markers : L.Marker[]=[];
 
   constructor(
@@ -50,7 +51,13 @@ export class MapPage implements OnInit {
         private router : Router,
         public platform : Platform 
 
-  ) { }
+  ) { 
+    this.platform.ready().then(()=>{
+      this.width=this.platform.width();
+      this.height=this.platform.height();
+      console.log("Kép mérete:"+this.width+" x "+this.height);
+    });
+  }
 
  ionViewDidEnter() {
             console.log("terkep betoltes:"+this.lat+"->"+this.lon);
@@ -121,11 +128,11 @@ export class MapPage implements OnInit {
       console.log("belefut a NINCS nap-ba");
       await this.loadMap();
     }  
-    const div = this.myMap.nativeElement;
+   /* const div = this.myMap.nativeElement;
     const width = div.offsetWidth;
     const height = div.offsetHeight;
 
-    console.log('DIV mérete:', width, 'x', height);
+    console.log('DIV mérete:', width, 'x', height);*/
   }
 
   async loadMap(){
@@ -133,12 +140,40 @@ export class MapPage implements OnInit {
       this.lat=position.coords.latitude;
       this.lon=position.coords.longitude;
 
+
               this.map = L.map('map').setView([this.lat, this.lon], 16);
               L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '© OpenStreetMap hozzájárulók'
               }).addTo(this.map);
+
+            const hereIcon=L.icon({
+                iconUrl : '../../assets/icon/here.svg',
+                //iconUrl: 'data:image/svg+xml;base64,' + btoa(svg),
+
+                iconSize : [36,36],
+                iconAnchor : [18,24],
+                popupAnchor : [0,12]
+            });
+             var marker : any;
+            if (this.day_id==0){
+                marker = L.marker([this.lat, this.lon],{icon: hereIcon}).addTo(this.map);
+                console.log("hozzaadom:"+this.lat);
+            }
+
+
+
             this.map.invalidateSize();
 
+  }
+
+  getMapSize(distance_width: number,distance_height: number){
+    const C=156543.03392804062;
+    var mpp=distance_width*1000/this.width;
+    var nagyitas_x=Math.floor(Math.log2(C*Math.cos(this.lat*Math.PI/108)/mpp));
+
+
+    
+    return nagyitas_x;
   }
 
   valtozott_a_terulet(event : any){
@@ -146,6 +181,7 @@ export class MapPage implements OnInit {
       this.markers.forEach(m=> this.map.removeLayer(m));
       this.markers = [];
 
+      this.selected_distance=event.detail.value;
       this.show_map_area(event.detail.value,this.lat, this.lon);
 
   }
@@ -164,6 +200,14 @@ export class MapPage implements OnInit {
               }).addTo(this.map);
             }
 
+            var min_lat : number ;
+            var min_lon : number ;
+            var max_lat : number ;
+            var max_lon : number ;
+            [min_lat ,min_lon,max_lat,max_lon]=this.mapService.getBounds(this.daily_programs);
+
+            this.map.fitBounds([[min_lat ,min_lon],[max_lat,max_lon]]);
+
             this.set_map_marker();
 
 
@@ -175,6 +219,21 @@ export class MapPage implements OnInit {
       this.travelService.searchPoint(distance,lat,lon)   
         .subscribe(data => {
             this.daily_programs=data;
+            var lat_dist :number;
+            var lon_dist: number;
+            var total_distance: number;
+            [total_distance,lat_dist,lon_dist]=this.mapService.getMaxLength(this.daily_programs);
+            var terkep_meret=this.getMapSize(lat_dist,lon_dist);
+            //this.map.setZoom(terkep_meret);
+            var min_lat : number ;
+            var min_lon : number ;
+            var max_lat : number ;
+            var max_lon : number ;
+console.log(this.daily_programs);            
+            [min_lat ,min_lon,max_lat,max_lon]=this.mapService.getBounds(this.daily_programs);
+console.log(min_lat+" , "+min_lon+" , "+max_lat+" , "+max_lon);
+            this.map.fitBounds([[min_lat ,min_lon],[max_lat,max_lon]]);
+            //this.map.setZoom(6);
 
             //var terkep_init_data=this.mapService.getMapInitData(this.daily_programs);
 
@@ -213,13 +272,29 @@ export class MapPage implements OnInit {
                 iconUrl : '../../assets/icon/Map-Marker-Small.svg',
                 //iconUrl: 'data:image/svg+xml;base64,' + btoa(svg),
 
-                iconSize : [48,48],
-                iconAnchor : [24,48],
+                iconSize : [48,40],
+                iconAnchor : [12,40],
                 popupAnchor : [0,24]
             });
 
+            const hereIcon=L.icon({
+                iconUrl : '../../assets/icon/here.svg',
+                //iconUrl: 'data:image/svg+xml;base64,' + btoa(svg),
+
+                iconSize : [24,24],
+                iconAnchor : [12,16],
+                popupAnchor : [0,12]
+            });
+
+             var marker : any;
+            if (this.day_id==0){
+                marker = L.marker([this.lat, this.lon],{icon: hereIcon}).addTo(this.map);
+                console.log("hozzaadom:"+this.lat);
+            }
+
+            this.markers.push(marker);
+
             this.daily_programs.forEach((loc, i) => {
-              var marker : any;
               if (loc.is_lattam==0){
                 marker = L.marker([loc.lat, loc.lon],{icon: customIcon}).addTo(this.map);
               }
@@ -234,6 +309,9 @@ export class MapPage implements OnInit {
                   btn.addEventListener('click', () => this.onMarkerClick(loc));
                 }
               });
+
+              this.markers.push(marker);
+
             });
 
   }
@@ -264,15 +342,24 @@ console.log(loc);
   }
 
   ready_program(nap_id : number,program_id : number){
-    this.markers.forEach(m=> this.map.removeLayer(m));
-    this.markers = [];
 
-    if (this.travel_id>0){
+    this.is_lattam=Math.abs(1-this.is_lattam);
 
-    }
-    else{
-      this.show_map_area(this.selected_distance,this.lat, this.lon);
-    }
+    this.travelService.readyProgram(0,program_id)
+      .subscribe(data => {
+
+          this.markers.forEach(m=> this.map.removeLayer(m));
+          this.markers = [];
+
+          if (nap_id>0){
+            this.show_map_day(nap_id);
+          }
+          else{
+            this.show_map_area(this.selected_distance,this.lat, this.lon);
+          }
+      });
+
+
 
     console.log("indul a klikk");
 /*      this.travelService.readyProgramOnMap(nap_id,program_id)
